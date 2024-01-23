@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   teste-postgres-compose:
     image: postgres
     environment:
@@ -8,10 +9,10 @@ services:
     ports:
       - "15432:5432"
     volumes:
-      - //wsl.localhost/Ubuntu/home/v1ct0rccs/Dev/Docker-Compose:/var/lib/postgresql/data 
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - postgres-compose-network
-      
+
   teste-pgadmin-compose:
     image: dpage/pgadmin4
     environment:
@@ -23,6 +24,16 @@ services:
       - teste-postgres-compose
     networks:
       - postgres-compose-network
+
+  ebac-mysql-compose:
+    image: mysql/mysql-server:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: 'vendas_online'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+    ports:
+      - "3306:3306"
 
 networks: 
   postgres-compose-network:
